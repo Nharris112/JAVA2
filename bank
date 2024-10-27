@@ -4,60 +4,46 @@ import java.util.Scanner;
 
 public class BankAcctApp {
 
-    private static Scanner scanner = new Scanner(System.in);
     private static List<Customer> customers = new ArrayList<>();
 
     public static void main(String[] args) {
-        System.out.println("Welcome to my Bank!");
+        System.out.println("Welcome to the Bank Account Application!");
 
-        boolean exit = false;
-        while (!exit) {
-            System.out.println("\nMain Menu:");
-            System.out.println("1. Add New Customer");
-            System.out.println("2. Display All Customers");
-            System.out.println("3. Exit");
-            System.out.print("Choose an option: ");
-            
-            int choice = scanner.nextInt();
-            scanner.nextLine();
-            
-            switch (choice) {
-                case 1 -> addNewCustomer();
-                case 2 -> displayAllCustomers();
-                case 3 -> exit = true;
-                default -> System.out.println("Invalid choice. Please try again.");
-            }
-        }
-        System.out.println("Thank you for using my Bank!");
+        // Add 2 customers for testing
+        addCustomer();
+        addCustomer();
+
+        // Display all customers with headings
+        displayAllCustomers();
     }
 
-    private static void addNewCustomer() {
-        System.out.println("Enter New Customer Details:");
+    // Method to add a customer using DataEntry for validated input
+    private static void addCustomer() {
+        System.out.println("\nEnter Customer Details:");
 
-        String customerId = DataEntry.enterStringWithLimit(5);
-        String customerSSN = DataEntry.enterNumericString(9);
-        String lastName = DataEntry.enterStringWithLimit(20);
-        String firstName = DataEntry.enterStringWithLimit(15);
-        String street = DataEntry.enterStringWithLimit(20);
-        String city = DataEntry.enterStringWithLimit(20);
-        String state = DataEntry.enterStringWithLimit(2);
-        String zip = DataEntry.enterNumericString(5);
-        String phone = DataEntry.enterNumericString(10);
+        String customerId = DataEntry.enterStringWithLimit("Customer ID (max 5 chars): ", 5);
+        String customerSSN = DataEntry.enterNumericString("Customer SSN (9 numeric chars): ", 9);
+        String lastName = DataEntry.enterStringWithLimit("Last Name (max 20 chars): ", 20);
+        String firstName = DataEntry.enterStringWithLimit("First Name (max 15 chars): ", 15);
+        String street = DataEntry.enterStringWithLimit("Street (max 20 chars): ", 20);
+        String city = DataEntry.enterStringWithLimit("City (max 20 chars): ", 20);
+        String state = DataEntry.enterStringWithLimit("State (2 chars): ", 2);
+        String zip = DataEntry.enterNumericString("Zip (5 numeric chars): ", 5);
+        String phone = DataEntry.enterNumericString("Phone (10 numeric chars): ", 10);
 
         Customer newCustomer = new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone);
         customers.add(newCustomer);
 
-        System.out.println("Customer added successfully.");
+        System.out.println("Customer added successfully.\n");
     }
 
+    // Display all customer details with headings
     private static void displayAllCustomers() {
-        System.out.println("\nAll Customers:");
-        if (customers.isEmpty()) {
-            System.out.println("No customers found.");
-        } else {
-            for (Customer customer : customers) {
-                System.out.println(customer);
-            }
+        System.out.println("Customer Information:");
+        System.out.println("----------------------------");
+
+        for (Customer customer : customers) {
+            System.out.println(customer);
         }
     }
 }
