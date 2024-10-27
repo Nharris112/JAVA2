@@ -1,0 +1,135 @@
+public class Customer {
+
+    // Instance variables
+    private String customerId;        // Max 5 characters, cannot be blank
+    private String customerSSN;       // 9 characters, numeric only, cannot be blank
+    private String lastName;          // Max 20 characters, cannot be blank
+    private String firstName;         // Max 15 characters, cannot be blank
+    private String street;            // Max 20 characters, cannot be blank
+    private String city;              // Max 20 characters, cannot be blank
+    private String state;             // 2 characters, cannot be blank
+    private String zip;               // 5 characters, numeric only, cannot be blank
+    private String phone;             // 10 characters, numeric only, cannot be blank
+
+    // Constructor
+    public Customer(String customerId, String customerSSN, String lastName, String firstName, 
+                    String street, String city, String state, String zip, String phone) {
+        setCustomerId(customerId);
+        setCustomerSSN(customerSSN);
+        setLastName(lastName);
+        setFirstName(firstName);
+        setStreet(street);
+        setCity(city);
+        setState(state);
+        setZip(zip);
+        setPhone(phone);
+    }
+
+    // Getters and Setters with Validation
+
+    public String getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(String customerId) {
+        if (customerId == null || customerId.isEmpty() || customerId.length() > 5) {
+            throw new IllegalArgumentException("Customer ID must be non-blank and max 5 characters.");
+        }
+        this.customerId = customerId;
+    }
+
+    public String getCustomerSSN() {
+        return customerSSN;
+    }
+
+    public void setCustomerSSN(String customerSSN) {
+        if (customerSSN == null || !customerSSN.matches("\\d{9}")) {
+            throw new IllegalArgumentException("Customer SSN must be exactly 9 numeric characters.");
+        }
+        this.customerSSN = customerSSN;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        if (lastName == null || lastName.isEmpty() || lastName.length() > 20) {
+            throw new IllegalArgumentException("Last Name must be non-blank and max 20 characters.");
+        }
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        if (firstName == null || firstName.isEmpty() || firstName.length() > 15) {
+            throw new IllegalArgumentException("First Name must be non-blank and max 15 characters.");
+        }
+        this.firstName = firstName;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        if (street == null || street.isEmpty() || street.length() > 20) {
+            throw new IllegalArgumentException("Street must be non-blank and max 20 characters.");
+        }
+        this.street = street;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        if (city == null || city.isEmpty() || city.length() > 20) {
+            throw new IllegalArgumentException("City must be non-blank and max 20 characters.");
+        }
+        this.city = city;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        if (state == null || state.length() != 2) {
+            throw new IllegalArgumentException("State must be exactly 2 characters.");
+        }
+        this.state = state;
+    }
+
+    public String getZip() {
+        return zip;
+    }
+
+    public void setZip(String zip) {
+        if (zip == null || !zip.matches("\\d{5}")) {
+            throw new IllegalArgumentException("Zip must be exactly 5 numeric characters.");
+        }
+        this.zip = zip;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        if (phone == null || !phone.matches("\\d{10}")) {
+            throw new IllegalArgumentException("Phone must be exactly 10 numeric characters.");
+        }
+        this.phone = phone;
+    }
+
+    // toString method to return all data for a customer
+    @Override
+    public String toString() {
+        return "Customer ID: " + customerId + ", SSN: " + customerSSN + ", Name: " + firstName + " " + lastName +
+               ", Address: " + street + ", " + city + ", " + state + " " + zip + ", Phone: " + phone;
+    }
+}
