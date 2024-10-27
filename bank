@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class BankAcctApp {
+
+    private static Scanner scanner = new Scanner(System.in);
+    private static List<Customer> customers = new ArrayList<>();
+
+    public static void main(String[] args) {
+        System.out.println("Welcome to my Bank!");
+
+        boolean exit = false;
+        while (!exit) {
+            System.out.println("\nMain Menu:");
+            System.out.println("1. Add New Customer");
+            System.out.println("2. Display All Customers");
+            System.out.println("3. Exit");
+            System.out.print("Choose an option: ");
+            
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+            
+            switch (choice) {
+                case 1 -> addNewCustomer();
+                case 2 -> displayAllCustomers();
+                case 3 -> exit = true;
+                default -> System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        System.out.println("Thank you for using my Bank!");
+    }
+
+    private static void addNewCustomer() {
+        System.out.println("Enter New Customer Details:");
+
+        String customerId = DataEntry.enterStringWithLimit(5);
+        String customerSSN = DataEntry.enterNumericString(9);
+        String lastName = DataEntry.enterStringWithLimit(20);
+        String firstName = DataEntry.enterStringWithLimit(15);
+        String street = DataEntry.enterStringWithLimit(20);
+        String city = DataEntry.enterStringWithLimit(20);
+        String state = DataEntry.enterStringWithLimit(2);
+        String zip = DataEntry.enterNumericString(5);
+        String phone = DataEntry.enterNumericString(10);
+
+        Customer newCustomer = new Customer(customerId, customerSSN, lastName, firstName, street, city, state, zip, phone);
+        customers.add(newCustomer);
+
+        System.out.println("Customer added successfully.");
+    }
+
+    private static void displayAllCustomers() {
+        System.out.println("\nAll Customers:");
+        if (customers.isEmpty()) {
+            System.out.println("No customers found.");
+        } else {
+            for (Customer customer : customers) {
+                System.out.println(customer);
+            }
+        }
+    }
+}
