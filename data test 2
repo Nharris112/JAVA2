@@ -1,0 +1,99 @@
+import java.util.Scanner;
+
+public class DataEntry {
+
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static String enterString(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine();
+    }
+
+    public static String enterStringWithLimit(String prompt, int maxLength) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine();
+            if (input.length() > maxLength || input.isEmpty()) {
+                System.out.println("Input must be non-empty and within " + maxLength + " characters.");
+            }
+        } while (input.length() > maxLength || input.isEmpty());
+        return input;
+    }
+
+    public static String enterNumericString(String prompt, int length) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine();
+            if (!input.matches("\\d{" + length + "}")) {
+                System.out.println("Input must be exactly " + length + " numeric characters.");
+            }
+        } while (!input.matches("\\d{" + length + "}"));
+        return input;
+    }
+
+    public static int enterInteger(String prompt) {
+        int number = 0;
+        boolean valid = false;
+        while (!valid) {
+            System.out.print(prompt);
+            try {
+                number = Integer.parseInt(scanner.nextLine());
+                valid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer. Please enter a valid integer.");
+            }
+        }
+        return number;
+    }
+
+    public static int enterIntegerInRange(String prompt, int min, int max) {
+        int number;
+        do {
+            number = enterInteger(prompt);
+            if (number < min || number > max) {
+                System.out.println("Input must be between " + min + " and " + max + ".");
+            }
+        } while (number < min || number > max);
+        return number;
+    }
+
+    public static double enterDecimal(String prompt) {
+        double number = 0.0;
+        boolean valid = false;
+        while (!valid) {
+            System.out.print(prompt);
+            try {
+                number = Double.parseDouble(scanner.nextLine());
+                valid = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid decimal. Please enter a valid decimal number.");
+            }
+        }
+        return number;
+    }
+
+    public static double enterDecimalInRange(String prompt, double min, double max) {
+        double number;
+        do {
+            number = enterDecimal(prompt);
+            if (number < min || number > max) {
+                System.out.println("Input must be between " + min + " and " + max + ".");
+            }
+        } while (number < min || number > max);
+        return number;
+    }
+
+    public static String enterDate(String prompt) {
+        String input;
+        do {
+            System.out.print(prompt);
+            input = scanner.nextLine();
+            if (!input.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                System.out.println("Invalid date format. Please enter in YYYY-MM-DD format.");
+            }
+        } while (!input.matches("\\d{4}-\\d{2}-\\d{2}"));
+        return input;
+    }
+}
