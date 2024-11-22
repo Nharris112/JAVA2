@@ -1,5 +1,6 @@
 public interface AccountInterface {
-    void withdrawal(double amount);
-    void deposit(double amount);
+    void withdrawal(double amount, String transactionDate, String transactionType);
+    void deposit(double amount, String transactionDate, String transactionType);
     double getBalance();
+    String getAccountNumber();
 }
