@@ -1,33 +1,29 @@
-import java.time.LocalDate;
-
-public class SavingsAccount extends Account implements AccountInterface {
+public class SavingsAccount extends Account {
     private final double serviceFee = 0.25;
-    private final double interestRate = 0.05;
 
     public SavingsAccount(String accountNumber, double initialBalance) {
         super(accountNumber, initialBalance);
     }
 
     @Override
-    public void withdrawal(double amount) {
-        if (amount + serviceFee > balance) {
+    public void withdrawal(double amount, String transactionDate, String transactionType) {
+        if (!isValidDate(transactionDate)) {
+            System.out.println("Invalid transaction date. Please use YYYY-MM-DD format.");
+            return;
+        }
+        if (amount + serviceFee > getBalance()) {
             System.out.println("Error: Insufficient funds. Withdrawal denied.");
         } else {
-            balance -= (amount + serviceFee);
+            setBalance(getBalance() - (amount + serviceFee));
         }
     }
 
     @Override
-    public void deposit(double amount) {
-        balance += (amount - serviceFee);
-    }
-
-    @Override
-    public double getBalance() {
-        return balance;
-    }
-
-    public void applyInterest() {
-        balance += balance * interestRate;
+    public void deposit(double amount, String transactionDate, String transactionType) {
+        if (!isValidDate(transactionDate)) {
+            System.out.println("Invalid transaction date. Please use YYYY-MM-DD format.");
+            return;
+        }
+        setBalance(getBalance() + amount - serviceFee);
     }
 }
