@@ -1,0 +1,70 @@
+public abstract class Account {
+
+    private String accountNumber;
+    private String accountType;
+    private double serviceFee;
+    private double interestRate;
+    private double overdraftFee;
+    private double balance = 0.0;
+
+    public Account(String accountNumber, String accountType, double serviceFee, 
+                   double interestRate, double overdraftFee) {
+        setAccountNumber(accountNumber);
+        setAccountType(accountType);
+        setServiceFee(serviceFee);
+        setInterestRate(interestRate);
+        this.overdraftFee = overdraftFee;
+    }
+
+    public abstract void withdrawal(double amount);
+    public abstract void deposit(double amount);
+
+    public String getAccountNumber() { return accountNumber; }
+    public void setAccountNumber(String accountNumber) {
+        if (accountNumber == null || accountNumber.length() > 5) {
+            throw new IllegalArgumentException("Account number must be something and max 5 characters.");
+        }
+        this.accountNumber = accountNumber;
+    }
+
+    public String getAccountType() { return accountType; }
+    public void setAccountType(String accountType) {
+        if (!accountType.equals("CHK") && !accountType.equals("SAV")) {
+            throw new IllegalArgumentException("Account type must be 'CHK' or 'SAV'.");
+        }
+        this.accountType = accountType;
+    }
+
+    public double getServiceFee() { return serviceFee; }
+    public void setServiceFee(double serviceFee) {
+        if (serviceFee < 0 || serviceFee > 10.0) {
+            throw new IllegalArgumentException("Service fee must be between 0 and 10.00.");
+        }
+        this.serviceFee = serviceFee;
+    }
+
+    public double getInterestRate() { return interestRate; }
+    public void setInterestRate(double interestRate) {
+        if (interestRate < 0 || interestRate > 10.0) {
+            throw new IllegalArgumentException("Interest rate must be between 0% and 10%.");
+        }
+        this.interestRate = interestRate / 100.0;
+    }
+
+    public double getOverdraftFee() { return overdraftFee; }
+    public void setOverdraftFee(double overdraftFee) {
+        this.overdraftFee = overdraftFee;
+    }
+
+    public double getBalance() { return balance; }
+    public void setBalance(double balance) {
+        this.balance = balance;
+    }
+
+    @Override
+    public String toString() {
+        return "Account Number: " + accountNumber + ", Type: " + accountType +
+               ", Balance: $" + balance + ", Service Fee: $" + serviceFee +
+               ", Interest Rate: " + (interestRate * 100) + "%, Overdraft Fee: $" + overdraftFee;
+    }
+}
