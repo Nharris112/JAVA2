@@ -1,35 +1,31 @@
-import java.time.LocalDate;
-
-public class CheckingAccount extends Account implements AccountInterface {
+public class CheckingAccount extends Account {
     private final double serviceFee = 0.50;
     private final double overdraftFee = 30.00;
-    private final double interestRate = 0.02;
 
     public CheckingAccount(String accountNumber, double initialBalance) {
         super(accountNumber, initialBalance);
     }
 
     @Override
-    public void withdrawal(double amount) {
-        if (amount + serviceFee > balance) {
-            balance -= (amount + serviceFee + overdraftFee);
+    public void withdrawal(double amount, String transactionDate, String transactionType) {
+        if (!isValidDate(transactionDate)) {
+            System.out.println("Invalid transaction date. Please use YYYY-MM-DD format.");
+            return;
+        }
+        if (amount + serviceFee > getBalance()) {
+            setBalance(getBalance() - (amount + serviceFee + overdraftFee));
             System.out.println("Warning: Account overdrawn. Overdraft fee charged.");
         } else {
-            balance -= (amount + serviceFee);
+            setBalance(getBalance() - (amount + serviceFee));
         }
     }
 
     @Override
-    public void deposit(double amount) {
-        balance += (amount - serviceFee);
-    }
-
-    @Override
-    public double getBalance() {
-        return balance;
-    }
-
-    public void applyInterest() {
-        balance += balance * interestRate;
+    public void deposit(double amount, String transactionDate, String transactionType) {
+        if (!isValidDate(transactionDate)) {
+            System.out.println("Invalid transaction date. Please use YYYY-MM-DD format.");
+            return;
+        }
+        setBalance(getBalance() + amount - serviceFee);
     }
 }
