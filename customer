@@ -1,21 +1,20 @@
 public class Customer {
-    
     private String customerId;
     private String customerSSN;
-    private String lastName;
     private String firstName;
+    private String lastName;
     private String street;
     private String city;
     private String state;
     private String zip;
     private String phone;
 
-    public Customer(String customerId, String customerSSN, String lastName, String firstName, 
+    public Customer(String customerId, String customerSSN, String firstName, String lastName,
                     String street, String city, String state, String zip, String phone) {
         setCustomerId(customerId);
         setCustomerSSN(customerSSN);
-        setLastName(lastName);
         setFirstName(firstName);
+        setLastName(lastName);
         setStreet(street);
         setCity(city);
         setState(state);
@@ -23,10 +22,11 @@ public class Customer {
         setPhone(phone);
     }
 
+    // Getters and setters with validation
     public String getCustomerId() { return customerId; }
     public void setCustomerId(String customerId) {
         if (customerId == null || customerId.isEmpty() || customerId.length() > 5) {
-            throw new IllegalArgumentException("Customer ID must be non-blank and max 5 characters.");
+            throw new IllegalArgumentException("Customer ID must be non-empty and up to 5 characters.");
         }
         this.customerId = customerId;
     }
@@ -34,31 +34,31 @@ public class Customer {
     public String getCustomerSSN() { return customerSSN; }
     public void setCustomerSSN(String customerSSN) {
         if (customerSSN == null || !customerSSN.matches("\\d{9}")) {
-            throw new IllegalArgumentException("Customer SSN must be exactly 9 numeric characters.");
+            throw new IllegalArgumentException("SSN must be exactly 9 numeric characters.");
         }
         this.customerSSN = customerSSN;
-    }
-
-    public String getLastName() { return lastName; }
-    public void setLastName(String lastName) {
-        if (lastName == null || lastName.isEmpty() || lastName.length() > 20) {
-            throw new IllegalArgumentException("Last Name must be non-blank and max 20 characters.");
-        }
-        this.lastName = lastName;
     }
 
     public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) {
         if (firstName == null || firstName.isEmpty() || firstName.length() > 15) {
-            throw new IllegalArgumentException("First Name must be non-blank and max 15 characters.");
+            throw new IllegalArgumentException("First name must be non-empty and up to 15 characters.");
         }
         this.firstName = firstName;
+    }
+
+    public String getLastName() { return lastName; }
+    public void setLastName(String lastName) {
+        if (lastName == null || lastName.isEmpty() || lastName.length() > 20) {
+            throw new IllegalArgumentException("Last name must be non-empty and up to 20 characters.");
+        }
+        this.lastName = lastName;
     }
 
     public String getStreet() { return street; }
     public void setStreet(String street) {
         if (street == null || street.isEmpty() || street.length() > 20) {
-            throw new IllegalArgumentException("Street must be non-blank and max 20 characters.");
+            throw new IllegalArgumentException("Street must be non-empty and up to 20 characters.");
         }
         this.street = street;
     }
@@ -66,7 +66,7 @@ public class Customer {
     public String getCity() { return city; }
     public void setCity(String city) {
         if (city == null || city.isEmpty() || city.length() > 20) {
-            throw new IllegalArgumentException("City must be non-blank and max 20 characters.");
+            throw new IllegalArgumentException("City must be non-empty and up to 20 characters.");
         }
         this.city = city;
     }
@@ -82,7 +82,7 @@ public class Customer {
     public String getZip() { return zip; }
     public void setZip(String zip) {
         if (zip == null || !zip.matches("\\d{5}")) {
-            throw new IllegalArgumentException("Zip must be exactly 5 numeric characters.");
+            throw new IllegalArgumentException("Zip code must be exactly 5 numeric characters.");
         }
         this.zip = zip;
     }
@@ -90,14 +90,16 @@ public class Customer {
     public String getPhone() { return phone; }
     public void setPhone(String phone) {
         if (phone == null || !phone.matches("\\d{10}")) {
-            throw new IllegalArgumentException("Phone must be exactly 10 numeric characters.");
+            throw new IllegalArgumentException("Phone number must be exactly 10 numeric characters.");
         }
         this.phone = phone;
     }
 
     @Override
     public String toString() {
-        return "Customer ID: " + customerId + ", SSN: " + customerSSN + ", Name: " + firstName + " " + lastName +
-               ", Address: " + street + ", " + city + ", " + state + " " + zip + ", Phone: " + phone;
+        return "Customer ID: " + customerId + ", SSN: " + customerSSN + 
+               ", Name: " + firstName + " " + lastName +
+               ", Address: " + street + ", " + city + ", " + state + " " + zip +
+               ", Phone: " + phone;
     }
 }
