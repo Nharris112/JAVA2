@@ -1,0 +1,33 @@
+import java.time.LocalDate;
+
+public class SavingsAccount extends Account implements AccountInterface {
+    private final double serviceFee = 0.25;
+    private final double interestRate = 0.05;
+
+    public SavingsAccount(String accountNumber, double initialBalance) {
+        super(accountNumber, initialBalance);
+    }
+
+    @Override
+    public void withdrawal(double amount) {
+        if (amount + serviceFee > balance) {
+            System.out.println("Error: Insufficient funds. Withdrawal denied.");
+        } else {
+            balance -= (amount + serviceFee);
+        }
+    }
+
+    @Override
+    public void deposit(double amount) {
+        balance += (amount - serviceFee);
+    }
+
+    @Override
+    public double getBalance() {
+        return balance;
+    }
+
+    public void applyInterest() {
+        balance += balance * interestRate;
+    }
+}
